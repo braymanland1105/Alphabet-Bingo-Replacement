@@ -1,0 +1,332 @@
+/* Import Fonts */
+/* Lilita One for titles, Nunito for body/buttons */
+@import url('https://fonts.googleapis.com/css2?family=Lilita+One&family=Nunito:wght@700&display=swap');
+
+:root {
+    --bg-color: #aae1f9; /* Light sky blue background */
+    --container-bg: #ffffff; /* White container */
+    --title-font: 'Lilita One', cursive;
+    --body-font: 'Nunito', sans-serif;
+    --play-button-bg: #57a836; /* Green play button */
+    --play-button-hover: #4a8c2c;
+    --setting-button-bg: #3498db; /* Blue setting buttons */
+    --setting-button-hover: #2980b9;
+    --back-button-bg: #e74c3c; /* Red back button */
+    --back-button-hover: #c0392b;
+    --grid-cell-bg: #fefae0; /* Light yellow grid cells */
+    --grid-cell-border: #d4a377;
+    --grid-cell-correct-bg: #fefae0; /* Same bg, rely on X */
+    --x-color: #d00000; /* Red for the X */
+    --text-dark: #333333;
+    --text-light: #ffffff;
+    --title-color: #ff7f27; /* Orange title color */
+    --title-shadow: #c15700;
+    --button-border-color: rgba(0,0,0,0.2);
+    --score-box-bg: #f0f0f0;
+}
+
+body {
+  font-family: var(--body-font);
+  display: flex;
+  justify-content: center;
+  align-items: flex-start; /* Align top for potentially longer content */
+  min-height: 100vh;
+  background-color: var(--bg-color);
+  margin: 0;
+  padding-top: 20px; /* Add some space at the top */
+}
+
+#game-container {
+  background-color: var(--container-bg);
+  padding: 25px;
+  border-radius: 15px;
+  box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+  text-align: center;
+  width: 90%;
+  max-width: 550px; /* Slightly larger max width */
+  border: 5px solid #7f4f24; /* Brown border */
+  position: relative; /* For absolute positioning inside */
+}
+
+.screen {
+  display: none; /* Hide screens by default */
+  flex-direction: column;
+  align-items: center;
+  gap: 20px; /* Spacing between elements */
+  min-height: 400px; /* Ensure minimum height */
+  justify-content: space-around; /* Distribute space */
+}
+
+.screen.active {
+  display: flex; /* Show the active screen */
+}
+
+/* --- Titles & Text --- */
+.title-banner {
+  font-family: var(--title-font);
+  font-size: 3em; /* Larger title */
+  color: var(--title-color);
+  text-shadow: 3px 3px 0px var(--title-shadow), /* Simple 3D effect */
+               -1px -1px 0 var(--title-shadow),
+               1px -1px 0 var(--title-shadow),
+               -1px 1px 0 var(--title-shadow),
+               1px 1px 0 var(--title-shadow);
+  margin-bottom: 10px;
+  line-height: 1.1;
+}
+
+h2 { /* Subtitles like SELECT MODE */
+  font-family: var(--body-font);
+  font-weight: 700; /* Ensure Nunito bold */
+  color: var(--text-dark);
+  font-size: 1.6em;
+  margin-bottom: 10px;
+}
+
+h3 { /* Like BINGO! on end screen */
+   font-family: var(--title-font);
+   font-size: 2.5em;
+   color: var(--play-button-bg); /* Green */
+   margin: 0;
+}
+
+
+/* --- Buttons --- */
+button {
+  font-family: var(--body-font);
+  font-weight: 700;
+  font-size: 1.1em;
+  padding: 10px 20px;
+  cursor: pointer;
+  border: 2px solid var(--button-border-color);
+  border-bottom-width: 4px; /* Thicker bottom border for depth */
+  border-radius: 8px;
+  color: var(--text-light);
+  transition: background-color 0.2s ease, transform 0.1s ease, border-bottom-width 0.1s ease, margin-top 0.1s ease;
+  text-transform: uppercase;
+  min-width: 120px;
+}
+
+button:hover {
+   filter: brightness(1.1);
+}
+
+ button:active {
+     transform: translateY(2px); /* Push down effect */
+     border-bottom-width: 2px; /* Reduce bottom border */
+     margin-top: 2px; /* Adjust margin to keep position */
+ }
+
+button:disabled {
+  background-color: #cccccc;
+  border-color: #999999;
+  cursor: not-allowed;
+  filter: grayscale(50%);
+  color: #777777;
+}
+
+.button-group {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    flex-wrap: wrap; /* Allow wrapping on smaller screens */
+}
+ .button-group.vertical {
+      flex-direction: column;
+      align-items: center;
+ }
+
+.action-button, .play-again {
+    background-color: var(--play-button-bg);
+    font-size: 1.4em;
+    padding: 15px 35px;
+}
+.action-button:hover { background-color: var(--play-button-hover); }
+
+.setting-button {
+    background-color: var(--setting-button-bg);
+    padding: 12px 25px;
+    min-width: 150px; /* Wider setting buttons */
+    min-height: 50px; /* Ensure height consistency */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.setting-button:hover { background-color: var(--setting-button-hover); }
+
+.back-button {
+  background-color: var(--back-button-bg);
+  font-size: 1.5em; /* Larger arrow */
+  color: var(--text-light);
+  position: absolute; /* Position relative to container */
+  bottom: 15px;
+  left: 15px;
+  padding: 5px 12px;
+  min-width: auto; /* Override min-width */
+  line-height: 1; /* Ensure tight fit vertically */
+}
+.back-button:hover { background-color: var(--back-button-hover); }
+
+
+/* --- Game Grid --- */
+#bingo-grid-container {
+    background-color: #fdfcdc; /* Slightly different cream for grid container */
+    padding: 15px;
+    border-radius: 10px;
+    border: 3px solid var(--grid-cell-border);
+    box-shadow: inset 0 0 10px rgba(0,0,0,0.1);
+}
+
+#bingo-grid {
+  display: grid;
+  gap: 8px; /* Slightly larger gap */
+  margin: 0 auto; /* Center grid within its container */
+}
+
+.grid-cell {
+  width: 70px; /* Larger cells */
+  height: 70px;
+  background-color: var(--grid-cell-bg);
+  border: 2px solid var(--grid-cell-border);
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2.2em; /* Larger letter */
+  font-weight: bold;
+  color: var(--text-dark);
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.1s ease;
+  position: relative; /* For the 'X' */
+  overflow: hidden; /* Hide parts of X that might go outside */
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none; /* Safari */
+   -khtml-user-select: none; /* Konqueror HTML */
+     -moz-user-select: none; /* Old versions of Firefox */
+      -ms-user-select: none; /* Internet Explorer/Edge */
+          user-select: none; /* Non-prefixed version, currently supported by Chrome, Edge, Opera and Firefox */
+}
+
+.grid-cell:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 5px var(--grid-cell-border);
+}
+
+.grid-cell.correct {
+  background-color: var(--grid-cell-correct-bg); /* Keep bg, maybe slightly brighter */
+  color: var(--text-dark); /* Keep text color */
+  cursor: default; /* Not clickable anymore */
+}
+
+ /* Improved 'X' mark using pseudo-elements */
+.grid-cell.correct::before,
+.grid-cell.correct::after {
+    content: '';
+    position: absolute;
+    width: 110%; /* Make lines slightly longer than cell width */
+    height: 10px; /* Thicker lines */
+    background-color: var(--x-color);
+    border-radius: 5px; /* Rounded ends */
+    top: 50%;
+    left: 50%;
+    transform-origin: center center; /* Rotate around center */
+    z-index: 1; /* Ensure X is above background but below text span */
+}
+ .grid-cell.correct::before {
+     transform: translate(-50%, -50%) rotate(45deg);
+ }
+ .grid-cell.correct::after {
+     transform: translate(-50%, -50%) rotate(-45deg);
+ }
+ /* Ensure text span is above the X */
+ .grid-cell span {
+     position: relative;
+     z-index: 2; /* Above pseudo-elements */
+     background: rgba(255, 255, 255, 0.6); /* Slight white glow behind text */
+     padding: 0 3px;
+     border-radius: 2px;
+ }
+
+
+.grid-cell.incorrect {
+   animation: shake 0.5s ease;
+}
+
+ @keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    50% { transform: translateX(5px); }
+    75% { transform: translateX(-5px); }
+ }
+
+
+/* --- Game Screen Specifics --- */
+ #called-letter-area {
+     min-height: 80px;
+     display: flex;
+     align-items: center;
+     justify-content: center;
+ }
+#called-letter-display {
+  font-size: 2em;
+  font-weight: bold;
+  color: var(--setting-button-bg); /* Blue */
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none; /* Safari */
+   -khtml-user-select: none; /* Konqueror HTML */
+     -moz-user-select: none; /* Old versions of Firefox */
+      -ms-user-select: none; /* Internet Explorer/Edge */
+          user-select: none; /* Non-prefixed version */
+}
+ #called-letter-display #current-letter {
+      font-size: 1.5em; /* Make the letter itself bigger */
+      display: inline-block;
+      min-width: 40px;
+      background-color: #eee;
+      padding: 5px 10px;
+      border-radius: 5px;
+      margin-left: 10px;
+ }
+
+#game-controls {
+    margin-top: 15px;
+}
+ .control-button {
+      background-color: var(--setting-button-bg); /* Blue */
+ }
+ .control-button:hover {
+      background-color: var(--setting-button-hover);
+ }
+
+
+/* --- End Screen Specifics --- */
+ #end-screen h2 { /* GREAT JOB */
+      font-family: var(--title-font);
+      font-size: 3em;
+      color: var(--setting-button-bg); /* Blue */
+      margin-bottom: 0;
+ }
+ #score-display {
+      display: flex;
+      justify-content: space-around;
+      width: 90%;
+      margin-top: 20px;
+      gap: 20px;
+ }
+ .score-box {
+     background-color: var(--score-box-bg);
+     padding: 15px;
+     border-radius: 8px;
+     border: 2px solid #ccc;
+     width: 45%;
+ }
+  .score-box h4 {
+      margin: 0 0 10px 0;
+      font-size: 1.2em;
+      color: var(--text-dark);
+  }
+  .score-box p {
+      margin: 5px 0;
+      font-size: 1.1em;
+      font-weight: 700;
+  }
