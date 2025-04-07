@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alphabet Bingo</title>
+    <base target="_top"> <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lilita+One&family=Nunito:wght@700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div id="game-container">
+
+        <div id="start-screen" class="screen active">
+           <div class="title-banner">ALPHABET BINGO</div>
+           <div class="button-group">
+               <button id="play-button" class="action-button play">PLAY</button>
+           </div>
+           <div class="footer-decor"></div>
+        </div>
+
+        <div id="settings-mode-screen" class="screen">
+          <div class="title-banner">ALPHABET BINGO</div>
+          <h2>SELECT MODE:</h2>
+          <div class="button-group vertical">
+              <button id="mode-letter-names" class="setting-button">LETTER NAMES</button>
+              <button id="mode-letter-sounds" class="setting-button">LETTER SOUNDS</button>
+          </div>
+          <button class="back-button" data-target="start-screen">&larr;</button>
+        </div>
+
+        <div id="settings-case-screen" class="screen">
+           <div class="title-banner">ALPHABET BINGO</div>
+           <h2>SELECT LETTER CASE:</h2>
+            <div class="button-group vertical">
+               <button id="case-uppercase" class="setting-button">UPPERCASE</button>
+               <button id="case-lowercase" class="setting-button">LOWERCASE</button>
+            </div>
+           <button class="back-button" data-target="settings-mode-screen">&larr;</button>
+        </div>
+
+         <div id="settings-grid-screen" class="screen">
+          <div class="title-banner">ALPHABET BINGO</div>
+          <h2>SELECT GRID SIZE:</h2>
+          <div class="button-group">
+              <button class="grid-size-button setting-button" data-size="3">3 x 3</button>
+              <button class="grid-size-button setting-button" data-size="4">4 x 4</button>
+              <button class="grid-size-button setting-button" data-size="5">5 x 5</button>
+          </div>
+          <button class="back-button" data-target="settings-case-screen">&larr;</button>
+        </div>
+
+        <div id="game-screen" class="screen">
+           <div id="called-letter-area">
+               <div id="called-letter-display">Find: <span id="current-letter"></span></div>
+           </div>
+           <div id="bingo-grid-container">
+                <div id="bingo-grid"></div>
+           </div>
+           <div id="game-controls">
+               <button id="repeat-letter-button" class="control-button">REPEAT LETTER</button>
+           </div>
+        </div>
+
+        <div id="end-screen" class="screen">
+           <h2 id="end-title">GREAT JOB!</h2>
+           <h3 id="end-subtitle">BINGO!</h3>
+           <div id="score-display">
+               <div class="score-box">
+                   <h4>YOUR SCORE</h4>
+                   <p><span id="correct-count">0</span> CORRECT</p>
+                   <p><span id="incorrect-count">0</span> INCORRECT</p>
+               </div>
+               <div class="score-box">
+                   <h4>TOP SCORE</h4>
+                   <p id="top-score">0</p> <p id="new-top-score-msg" style="color: #ff5722; font-weight: bold; visibility: hidden;">NEW TOP SCORE!</p>
+               </div>
+           </div>
+           <div class="button-group">
+               <button id="play-again-button" class="action-button play-again">PLAY AGAIN</button>
+           </div>
+        </div>
+
+      </div><script src="script.js"></script>
+</body>
+</html>
