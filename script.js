@@ -35,71 +35,81 @@ const UPPERCASE_ALPHABET = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
 const LOWERCASE_ALPHABET = 'abcdefghijklmnopqrstuvwxyz'.split('');
 
 // --- Audio ---
-// Using RELATIVE PATHS - Assumes audio files are in the same folder as index.html
-// If you put them in an 'audio' subfolder, change paths to 'audio/click.mp3', etc.
+// Using RELATIVE PATHS based on user-provided file structure.
+// Assumes index.html is in the root, and these paths are relative to it.
 const SOUND_URLS = {
     // --- UI & SFX ---
-    MENU_MUSIC: 'menu_music.mp3', // Example filename, use your actual filename
-    CLICK: 'click.mp3',          // Example filename
-    CORRECT: 'correct.mp3',      // Example filename
-    INCORRECT: 'incorrect.mp3',  // Example filename
-    BINGO: 'bingo.mp3',          // Example filename
+    MENU_MUSIC: 'audio/Music/Menu Music.mp3',
+    CLICK: 'audio/Sound Effects/Click Sound.mp3',
+    CORRECT: 'audio/Sound Effects/Correct Sound.mp3',
+    INCORRECT: 'audio/Sound Effects/Incorrect Sound.mp3',
+    BINGO: 'audio/Sound Effects/Bingo Sound.mp3',
 
-    // --- Letter Names (NAME) --- Use your actual filenames ---
-    A_NAME: 'A_NAME.mp3',
-    B_NAME: 'B_NAME.mp3',
-    C_NAME: 'C_NAME.mp3',
-    D_NAME: 'D_NAME.mp3',
-    E_NAME: 'E_NAME.mp3',
-    F_NAME: 'F_NAME.mp3',
-    G_NAME: 'G_NAME.mp3',
-    H_NAME: 'H_NAME.mp3',
-    I_NAME: 'I_NAME.mp3',
-    J_NAME: 'J_NAME.mp3',
-    K_NAME: 'K_NAME.mp3',
-    L_NAME: 'L_NAME.mp3',
-    M_NAME: 'M_NAME.mp3',
-    N_NAME: 'N_NAME.mp3',
-    O_NAME: 'O_NAME.mp3',
-    P_NAME: 'P_NAME.mp3',
-    Q_NAME: 'Q_NAME.mp3',
-    R_NAME: 'R_NAME.mp3',
-    S_NAME: 'S_NAME.mp3',
-    T_NAME: 'T_NAME.mp3',
-    U_NAME: 'U_NAME.mp3',
-    V_NAME: 'V_NAME.mp3',
-    W_NAME: 'W_NAME.mp3',
-    X_NAME: 'X_NAME.mp3',
-    Y_NAME: 'Y_NAME.mp3',
-    Z_NAME: 'Z_NAME.mp3',
+    // --- Letter Names (NAME) ---
+    // NOTE: You didn't provide paths for Letter Names, only Letter Sounds.
+    // Add paths here if you have separate recordings for letter names (e.g., saying "Ay", "Bee").
+    // If you only have the letter sounds (phonetics), you might only use the _SOUND section below.
+    // Example placeholder if you had name files:
+    // A_NAME: 'audio/Alphabet Names/A_Name.mp3', // Replace with your actual path/filename
+    // B_NAME: 'audio/Alphabet Names/B_Name.mp3',
+    // ... etc ...
+    // If you don't have separate NAME sounds, you can leave these commented out or remove them,
+    // but make sure the game logic doesn't try to play them (e.g., maybe only enable Letter Sounds mode).
+    A_NAME: '', // Add path or leave empty/comment out
+    B_NAME: '', // Add path or leave empty/comment out
+    C_NAME: '', // Add path or leave empty/comment out
+    D_NAME: '', // Add path or leave empty/comment out
+    E_NAME: '', // Add path or leave empty/comment out
+    F_NAME: '', // Add path or leave empty/comment out
+    G_NAME: '', // Add path or leave empty/comment out
+    H_NAME: '', // Add path or leave empty/comment out
+    I_NAME: '', // Add path or leave empty/comment out
+    J_NAME: '', // Add path or leave empty/comment out
+    K_NAME: '', // Add path or leave empty/comment out
+    L_NAME: '', // Add path or leave empty/comment out
+    M_NAME: '', // Add path or leave empty/comment out
+    N_NAME: '', // Add path or leave empty/comment out
+    O_NAME: '', // Add path or leave empty/comment out
+    P_NAME: '', // Add path or leave empty/comment out
+    Q_NAME: '', // Add path or leave empty/comment out
+    R_NAME: '', // Add path or leave empty/comment out
+    S_NAME: '', // Add path or leave empty/comment out
+    T_NAME: '', // Add path or leave empty/comment out
+    U_NAME: '', // Add path or leave empty/comment out
+    V_NAME: '', // Add path or leave empty/comment out
+    W_NAME: '', // Add path or leave empty/comment out
+    X_NAME: '', // Add path or leave empty/comment out
+    Y_NAME: '', // Add path or leave empty/comment out
+    Z_NAME: '', // Add path or leave empty/comment out
 
-    // --- Letter Sounds (PHONETIC) --- Use your actual filenames ---
-    A_SOUND: 'A_SOUND.mp3',
-    B_SOUND: 'B_SOUND.mp3',
-    C_SOUND: 'C_SOUND.mp3',
-    D_SOUND: 'D_SOUND.mp3',
-    E_SOUND: 'E_SOUND.mp3',
-    F_SOUND: 'F_SOUND.mp3',
-    G_SOUND: 'G_SOUND.mp3',
-    H_SOUND: 'H_SOUND.mp3',
-    I_SOUND: 'I_SOUND.mp3',
-    J_SOUND: 'J_SOUND.mp3',
-    K_SOUND: 'K_SOUND.mp3',
-    L_SOUND: 'L_SOUND.mp3',
-    M_SOUND: 'M_SOUND.mp3',
-    N_SOUND: 'N_SOUND.mp3',
-    O_SOUND: 'O_SOUND.mp3',
-    P_SOUND: 'P_SOUND.mp3',
-    Q_SOUND: 'Q_SOUND.mp3',
-    R_SOUND: 'R_SOUND.mp3',
-    S_SOUND: 'S_SOUND.mp3',
-    T_SOUND: 'T_SOUND.mp3',
-    U_SOUND: 'U_SOUND.mp3',
-    V_SOUND: 'V_SOUND.mp3',
-    W_SOUND: 'W_SOUND.mp3',
-    X_SOUND: 'X_SOUND.mp3',
-    Y_SOUND: 'Y_SOUND.mp3',
-    Z_SOUND: 'Z_SOUND.mp3',
+
+    // --- Letter Sounds (PHONETIC) --- Using your .wav files ---
+    A_SOUND: 'audio/Alphabet Sounds/A.wav',
+    B_SOUND: 'audio/Alphabet Sounds/B.wav',
+    C_SOUND: 'audio/Alphabet Sounds/C.wav',
+    D_SOUND: 'audio/Alphabet Sounds/D.wav',
+    E_SOUND: 'audio/Alphabet Sounds/E.wav',
+    F_SOUND: 'audio/Alphabet Sounds/F.wav',
+    G_SOUND: 'audio/Alphabet Sounds/G.wav',
+    H_SOUND: 'audio/Alphabet Sounds/H.wav',
+    I_SOUND: 'audio/Alphabet Sounds/I.wav',
+    J_SOUND: 'audio/Alphabet Sounds/J.wav',
+    K_SOUND: 'audio/Alphabet Sounds/K.wav',
+    L_SOUND: 'audio/Alphabet Sounds/L.wav',
+    M_SOUND: 'audio/Alphabet Sounds/M.wav',
+    N_SOUND: 'audio/Alphabet Sounds/N.wav',
+    O_SOUND: 'audio/Alphabet Sounds/O.wav',
+    P_SOUND: 'audio/Alphabet Sounds/P.wav',
+    Q_SOUND: 'audio/Alphabet Sounds/Q.wav',
+    R_SOUND: 'audio/Alphabet Sounds/R.wav',
+    S_SOUND: 'audio/Alphabet Sounds/S.wav',
+    T_SOUND: 'audio/Alphabet Sounds/T.wav',
+    U_SOUND: 'audio/Alphabet Sounds/U.wav',
+    V_SOUND: 'audio/Alphabet Sounds/V.wav',
+    W_SOUND: 'audio/Alphabet Sounds/W.wav',
+    X_SOUND: 'audio/Alphabet Sounds/X.wav',
+    Y_SOUND: 'audio/Alphabet Sounds/Y.wav',
+    Z_SOUND: 'audio/Alphabet Sounds/Z.wav',
 };
 
 
