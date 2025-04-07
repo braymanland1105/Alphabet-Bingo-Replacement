@@ -396,5 +396,3 @@ try {
    console.error("Could not access localStorage on initial load:", e);
 }
 showScreen('start-screen');
-
-</script>
