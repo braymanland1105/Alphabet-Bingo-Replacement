@@ -37,22 +37,48 @@ const UPPERCASE_ALPHABET = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
 const LOWERCASE_ALPHABET = 'abcdefghijklmnopqrstuvwxyz'.split('');
 
 // --- Audio ---
-// Using RELATIVE PATHS - Assumes audio files are in folders relative to index.html
+// Using RELATIVE PATHS - Update these to match your exact file structure/names on GitHub
 const SOUND_URLS = {
-    // --- UI & SFX --- (Use your actual relative paths)
+    // --- UI & SFX ---
     MENU_MUSIC: 'audio/Music/Menu Music.mp3',
     CLICK: 'audio/Sound Effects/Click Sound.mp3',
     CORRECT: 'audio/Sound Effects/Correct Sound.mp3',
     INCORRECT: 'audio/Sound Effects/Incorrect Sound.mp3',
     BINGO: 'audio/Sound Effects/Bingo Sound.mp3',
 
-    // --- Letter Names (NAME) --- (Add paths if you have them)
-    A_NAME: '', B_NAME: '', C_NAME: '', // etc.
+    // --- Letter Names (NAME) --- Add paths if you have them ---
+    A_NAME: '', B_NAME: '', C_NAME: '', D_NAME: '', E_NAME: '', F_NAME: '',
+    G_NAME: '', H_NAME: '', I_NAME: '', J_NAME: '', K_NAME: '', L_NAME: '',
+    M_NAME: '', N_NAME: '', O_NAME: '', P_NAME: '', Q_NAME: '', R_NAME: '',
+    S_NAME: '', T_NAME: '', U_NAME: '', V_NAME: '', W_NAME: '', X_NAME: '',
+    Y_NAME: '', Z_NAME: '',
 
-    // --- Letter Sounds (PHONETIC) --- (Use your actual relative paths)
+    // --- Letter Sounds (PHONETIC) --- Using your .wav files ---
     A_SOUND: 'audio/Alphabet Sounds/A.wav',
     B_SOUND: 'audio/Alphabet Sounds/B.wav',
-    // ... etc. ...
+    C_SOUND: 'audio/Alphabet Sounds/C.wav',
+    D_SOUND: 'audio/Alphabet Sounds/D.wav',
+    E_SOUND: 'audio/Alphabet Sounds/E.wav',
+    F_SOUND: 'audio/Alphabet Sounds/F.wav',
+    G_SOUND: 'audio/Alphabet Sounds/G.wav',
+    H_SOUND: 'audio/Alphabet Sounds/H.wav',
+    I_SOUND: 'audio/Alphabet Sounds/I.wav',
+    J_SOUND: 'audio/Alphabet Sounds/J.wav',
+    K_SOUND: 'audio/Alphabet Sounds/K.wav',
+    L_SOUND: 'audio/Alphabet Sounds/L.wav',
+    M_SOUND: 'audio/Alphabet Sounds/M.wav',
+    N_SOUND: 'audio/Alphabet Sounds/N.wav',
+    O_SOUND: 'audio/Alphabet Sounds/O.wav',
+    P_SOUND: 'audio/Alphabet Sounds/P.wav',
+    Q_SOUND: 'audio/Alphabet Sounds/Q.wav',
+    R_SOUND: 'audio/Alphabet Sounds/R.wav',
+    S_SOUND: 'audio/Alphabet Sounds/S.wav',
+    T_SOUND: 'audio/Alphabet Sounds/T.wav',
+    U_SOUND: 'audio/Alphabet Sounds/U.wav',
+    V_SOUND: 'audio/Alphabet Sounds/V.wav',
+    W_SOUND: 'audio/Alphabet Sounds/W.wav',
+    X_SOUND: 'audio/Alphabet Sounds/X.wav',
+    Y_SOUND: 'audio/Alphabet Sounds/Y.wav',
     Z_SOUND: 'audio/Alphabet Sounds/Z.wav',
 };
 
@@ -62,23 +88,23 @@ let interactionOccurred = false;
 
 // --- Audio Functions (with logging) ---
 function playSound(soundUrl) {
-    console.log("Attempting to play sound. URL:", soundUrl);
+    // console.log("Attempting to play sound. URL:", soundUrl); // Reduce noise
     if (!soundUrl) {
-         console.warn("Skipping playback for missing sound URL:", soundUrl);
+         // console.warn("Skipping playback for missing sound URL:", soundUrl); // Reduce noise
          return;
     }
     try {
         const audio = new Audio(soundUrl);
-        // console.log("Audio object created for SFX:", audio); // Optional: reduce console noise
-        audio.addEventListener('canplaythrough', () => {/* console.log("SFX Can play through:", soundUrl) */}); // Optional: reduce console noise
+        // console.log("Audio object created for SFX:", audio); // Reduce noise
+        // audio.addEventListener('canplaythrough', () => console.log("SFX Can play through:", soundUrl)); // Reduce noise
         audio.addEventListener('error', (e) => console.error("SFX Error event:", e, "URL:", soundUrl, "Error Object:", audio.error));
         audio.play().then(() => {
-            // console.log("SFX playback started successfully for:", soundUrl); // Optional: reduce console noise
+            // console.log("SFX playback started successfully for:", soundUrl); // Reduce noise
         }).catch(error => {
             if (error.name !== 'NotAllowedError') {
                console.error("SFX .play() Promise Error:", error, "URL:", soundUrl);
             } else {
-               // console.warn("SFX .play() blocked by autoplay rules. URL:", soundUrl); // Optional: reduce console noise
+               // console.warn("SFX .play() blocked by autoplay rules. URL:", soundUrl); // Reduce noise
             }
         });
     } catch (error) {
@@ -88,7 +114,7 @@ function playSound(soundUrl) {
 
 function startMenuMusic() {
     const menuUrl = SOUND_URLS.MENU_MUSIC;
-    console.log("Attempting to start menu music. URL:", menuUrl);
+    // console.log("Attempting to start menu music. URL:", menuUrl); // Reduce noise
     if (!menuUrl) {
          console.warn("Cannot start menu music - URL is missing.");
          return;
@@ -98,7 +124,7 @@ function startMenuMusic() {
             menuMusicAudio = new Audio(menuUrl);
             menuMusicAudio.loop = true;
             menuMusicAudio.volume = 0.3;
-            console.log("Menu Music Audio object created:", menuMusicAudio);
+            // console.log("Menu Music Audio object created:", menuMusicAudio); // Reduce noise
             menuMusicAudio.addEventListener('canplaythrough', () => console.log("Menu Music: Can play through. URL:", menuUrl));
             menuMusicAudio.addEventListener('error', (e) => console.error("Menu Music: Error event:", e, "URL:", menuUrl, "Error Object:", menuMusicAudio.error));
             menuMusicAudio.addEventListener('stalled', () => console.warn("Menu Music: Stalled event. URL:", menuUrl));
@@ -109,9 +135,9 @@ function startMenuMusic() {
         }
     }
     if (menuMusicAudio.paused) {
-        console.log("Calling menuMusicAudio.play() for URL:", menuUrl);
+        // console.log("Calling menuMusicAudio.play() for URL:", menuUrl); // Reduce noise
         menuMusicAudio.play().then(() => {
-             console.log("Menu music .play() resolved for URL:", menuUrl);
+             // console.log("Menu music .play() resolved for URL:", menuUrl); // Reduce noise
          }).catch(error => {
              if (!interactionOccurred) console.warn("Menu music .play() Promise Error:", error, "URL:", menuUrl);
          });
@@ -120,10 +146,10 @@ function startMenuMusic() {
 
 function stopMenuMusic() {
     if (menuMusicAudio && !menuMusicAudio.paused) {
-        console.log("Attempting to pause menu music.");
+        // console.log("Attempting to pause menu music."); // Reduce noise
         menuMusicAudio.pause();
         menuMusicAudio.currentTime = 0;
-        console.log("Menu music stopped (paused and reset time).");
+        // console.log("Menu music stopped (paused and reset time)."); // Reduce noise
     }
 }
 
@@ -155,7 +181,7 @@ function showScreen(screenId) {
       if (!interactionOccurred) {
            interactionOccurred = true;
            console.log("First user interaction detected. Attempting to start potentially blocked audio.");
-           const startScreenActive = document.getElementById('start-screen')?.classList.contains('active'); // Add safety check
+           const startScreenActive = document.getElementById('start-screen')?.classList.contains('active');
            if (startScreenActive && menuMusicAudio && menuMusicAudio.paused) {
                 startMenuMusic();
            }
@@ -249,8 +275,14 @@ if (repeatLetterButton) {
     if (gameState.calledLetter) {
       const letterKey = gameState.calledLetter.toUpperCase();
       const soundKey = (gameState.mode === 'LETTER_SOUNDS') ? `${letterKey}_SOUND` : `${letterKey}_NAME`;
-      const soundUrlToPlay = SOUND_URLS[soundKey];
-      setTimeout(() => { playSound(soundUrlToPlay); }, 150);
+      // Add check if sound key exists and has a value
+      if (SOUND_URLS[soundKey]) {
+          const soundUrlToPlay = SOUND_URLS[soundKey];
+          console.log("Playing sound key:", soundKey, "URL:", soundUrlToPlay);
+          setTimeout(() => { playSound(soundUrlToPlay); }, 150);
+      } else {
+          console.warn(`Sound URL not found for key: ${soundKey}`);
+      }
     }
   });
 } else { console.error("Repeat Letter button not found!"); }
@@ -277,6 +309,7 @@ function resetGame() {
     const msgElement = document.getElementById('new-top-score-msg');
     if(msgElement) msgElement.style.visibility = 'hidden';
 }
+
 function startGame() {
     console.log("Starting game with settings:", gameState);
     generateBoard();
@@ -284,6 +317,7 @@ function startGame() {
     showScreen('game-screen');
     setTimeout(callNextLetter, 500);
 }
+
 function generateBoard() {
     const size = gameState.gridSize; const numCells = size * size;
     if(!bingoGrid) { console.error("Bingo grid element not found in generateBoard"); return; } // Safety check
@@ -299,11 +333,13 @@ function generateBoard() {
     }
     console.log("Board generated:", gameState.boardLetters);
 }
+
 function setupGridEventListeners() {
     if(!bingoGrid) { console.error("Bingo grid element not found in setupGridEventListeners"); return; } // Safety check
     bingoGrid.removeEventListener('click', handleTileClick);
     bingoGrid.addEventListener('click', handleTileClick);
 }
+
 function handleTileClick(event) {
     if (gameState.isGameOver) return;
     const clickedCell = event.target.closest('.grid-cell');
@@ -326,6 +362,7 @@ function handleTileClick(event) {
     }
     if(scoreDisplayIncorrect) scoreDisplayIncorrect.textContent = gameState.incorrectAttempts; // Safety check
 }
+
 function callNextLetter() {
     if (gameState.availableLetters.length === 0 || gameState.isGameOver) {
         console.log("No more letters to call or game over.");
@@ -337,18 +374,29 @@ function callNextLetter() {
     console.log("Calling letter:", gameState.calledLetter, "in mode:", gameState.mode);
     const letterKey = gameState.calledLetter.toUpperCase();
     const soundKey = (gameState.mode === 'LETTER_SOUNDS') ? `${letterKey}_SOUND` : `${letterKey}_NAME`;
-    const soundUrlToPlay = SOUND_URLS[soundKey];
-    console.log("Playing sound key:", soundKey, "URL:", soundUrlToPlay);
-    setTimeout(() => { playSound(soundUrlToPlay); }, 150);
+    // Add check if sound key exists and has a value
+    if (SOUND_URLS[soundKey]) {
+        const soundUrlToPlay = SOUND_URLS[soundKey];
+        console.log("Playing sound key:", soundKey, "URL:", soundUrlToPlay);
+        setTimeout(() => { playSound(soundUrlToPlay); }, 150);
+    } else {
+        console.warn(`Sound URL not found for key: ${soundKey}`);
+        // Decide if you want to play a default sound or nothing if the specific sound is missing
+    }
 }
+
 function checkForBingo() {
   const size = gameState.gridSize; const selections = gameState.correctSelections;
   if (selections.size < size) return false;
+  // Row check
   for (let r = 0; r < size; r++) { let rowWin = true; for (let c = 0; c < size; c++) { if (!selections.has(r * size + c)) { rowWin = false; break; } } if (rowWin) return true; }
+  // Column check
   for (let c = 0; c < size; c++) { let colWin = true; for (let r = 0; r < size; r++) { if (!selections.has(r * size + c)) { colWin = false; break; } } if (colWin) return true; }
+  // Diagonal checks
   if (size >= 1) { let diag1Win = true; let diag2Win = true; for (let i = 0; i < size; i++) { if (!selections.has(i * size + i)) { diag1Win = false; } if (!selections.has(i * size + (size - 1 - i))) { diag2Win = false; } } if (diag1Win || diag2Win) return true; }
   return false;
 }
+
 function endGame(isBingo) {
     if (gameState.isGameOver) return; gameState.isGameOver = true; console.log("Game ended. Bingo:", isBingo);
     const subtitleEl = endScreen?.querySelector('#end-subtitle'); // Optional chaining
@@ -373,9 +421,9 @@ function endGame(isBingo) {
         if (finalScore > currentTopScore) {
            if(topScoreEl) topScoreEl.textContent = finalScore;
            if(newTopScoreMsgEl) newTopScoreMsgEl.style.visibility = 'visible';
-           localStorage.setItem('alphabetBingoTopScore', finalScore);
+           localStorage.setItem('alphabetBingoTopScore', finalScore); // Save new top score
         } else {
-             if(topScoreEl) topScoreEl.textContent = currentTopScore;
+             if(topScoreEl) topScoreEl.textContent = currentTopScore; // Show existing top score
              if(newTopScoreMsgEl) newTopScoreMsgEl.style.visibility = 'hidden';
         }
     } catch (e) {
@@ -383,16 +431,21 @@ function endGame(isBingo) {
         const topScoreEl = document.getElementById('top-score');
         if(topScoreEl) topScoreEl.textContent = gameState.correctSelections.size; // Fallback display
     }
-    showScreen('end-screen');
+    showScreen('end-screen'); // Stops music
 }
 
 // --- Initial Setup ---
 try {
+   // Load top score or default to 0
    const topScoreEl = document.getElementById('top-score');
    if (topScoreEl) {
       topScoreEl.textContent = localStorage.getItem('alphabetBingoTopScore') || '0';
+   } else {
+       console.error("Top score element not found on initial load.");
    }
 } catch(e) {
    console.error("Could not access localStorage on initial load:", e);
 }
-showScreen('start-screen');
+showScreen('start-screen'); // Show the start screen and trigger initial music attempt
+
+</script>
