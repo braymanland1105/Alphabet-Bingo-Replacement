@@ -46,7 +46,7 @@ const SOUND_URLS = {
     INCORRECT: 'audio/Sound Effects/Incorrect Sound.mp3',
     BINGO: 'audio/Sound Effects/Bingo Sound.mp3',
 
-    // --- Letter Names (NAME) --- Add paths if you have them ---
+    // --- Letter Names (NAME) --- (Add paths if you have them)
     A_NAME: '', B_NAME: '', C_NAME: '', D_NAME: '', E_NAME: '', F_NAME: '',
     G_NAME: '', H_NAME: '', I_NAME: '', J_NAME: '', K_NAME: '', L_NAME: '',
     M_NAME: '', N_NAME: '', O_NAME: '', P_NAME: '', Q_NAME: '', R_NAME: '',
@@ -181,7 +181,7 @@ function showScreen(screenId) {
       if (!interactionOccurred) {
            interactionOccurred = true;
            console.log("First user interaction detected. Attempting to start potentially blocked audio.");
-           const startScreenActive = document.getElementById('start-screen')?.classList.contains('active');
+           const startScreenActive = document.getElementById('start-screen')?.classList.contains('active'); // Add safety check
            if (startScreenActive && menuMusicAudio && menuMusicAudio.paused) {
                 startMenuMusic();
            }
@@ -278,7 +278,7 @@ if (repeatLetterButton) {
       // Add check if sound key exists and has a value
       if (SOUND_URLS[soundKey]) {
           const soundUrlToPlay = SOUND_URLS[soundKey];
-          console.log("Playing sound key:", soundKey, "URL:", soundUrlToPlay);
+          // console.log("Playing sound key:", soundKey, "URL:", soundUrlToPlay); // Reduce noise
           setTimeout(() => { playSound(soundUrlToPlay); }, 150);
       } else {
           console.warn(`Sound URL not found for key: ${soundKey}`);
@@ -311,7 +311,7 @@ function resetGame() {
 }
 
 function startGame() {
-    console.log("Starting game with settings:", gameState);
+    // console.log("Starting game with settings:", gameState); // Reduce noise
     generateBoard();
     setupGridEventListeners();
     showScreen('game-screen');
@@ -331,7 +331,7 @@ function generateBoard() {
         cell.dataset.index = i; cell.dataset.letter = gameState.boardLetters[i];
         bingoGrid.appendChild(cell);
     }
-    console.log("Board generated:", gameState.boardLetters);
+    // console.log("Board generated:", gameState.boardLetters); // Reduce noise
 }
 
 function setupGridEventListeners() {
@@ -350,13 +350,13 @@ function handleTileClick(event) {
         gameState.correctSelections.add(cellIndex); gameState.correctAttempts++;
         const letterIndex = gameState.availableLetters.indexOf(gameState.calledLetter);
         if (letterIndex > -1) { gameState.availableLetters.splice(letterIndex, 1); }
-        console.log("Correct selection:", clickedLetter, "Index:", cellIndex);
+        // console.log("Correct selection:", clickedLetter, "Index:", cellIndex); // Reduce noise
         if (checkForBingo()) { endGame(true); }
         else if (gameState.availableLetters.length === 0) { endGame(false); }
         else { setTimeout(callNextLetter, 400); }
     } else {
         playSound(SOUND_URLS.INCORRECT); gameState.incorrectAttempts++;
-        console.log("Incorrect selection:", clickedLetter);
+        // console.log("Incorrect selection:", clickedLetter); // Reduce noise
         clickedCell.classList.add('incorrect');
         setTimeout(() => { if (clickedCell) { clickedCell.classList.remove('incorrect'); } }, 500);
     }
@@ -365,23 +365,22 @@ function handleTileClick(event) {
 
 function callNextLetter() {
     if (gameState.availableLetters.length === 0 || gameState.isGameOver) {
-        console.log("No more letters to call or game over.");
+        // console.log("No more letters to call or game over."); // Reduce noise
         if (!gameState.isGameOver && gameState.availableLetters.length === 0) { endGame(false); } return;
     }
     const randomIndex = Math.floor(Math.random() * gameState.availableLetters.length);
     gameState.calledLetter = gameState.availableLetters[randomIndex];
     if(currentLetterDisplay) currentLetterDisplay.textContent = gameState.calledLetter; // Safety check
-    console.log("Calling letter:", gameState.calledLetter, "in mode:", gameState.mode);
+    // console.log("Calling letter:", gameState.calledLetter, "in mode:", gameState.mode); // Reduce noise
     const letterKey = gameState.calledLetter.toUpperCase();
     const soundKey = (gameState.mode === 'LETTER_SOUNDS') ? `${letterKey}_SOUND` : `${letterKey}_NAME`;
     // Add check if sound key exists and has a value
     if (SOUND_URLS[soundKey]) {
         const soundUrlToPlay = SOUND_URLS[soundKey];
-        console.log("Playing sound key:", soundKey, "URL:", soundUrlToPlay);
+        // console.log("Playing sound key:", soundKey, "URL:", soundUrlToPlay); // Reduce noise
         setTimeout(() => { playSound(soundUrlToPlay); }, 150);
     } else {
         console.warn(`Sound URL not found for key: ${soundKey}`);
-        // Decide if you want to play a default sound or nothing if the specific sound is missing
     }
 }
 
@@ -399,7 +398,7 @@ function checkForBingo() {
 
 function endGame(isBingo) {
     if (gameState.isGameOver) return; gameState.isGameOver = true; console.log("Game ended. Bingo:", isBingo);
-    const subtitleEl = endScreen?.querySelector('#end-subtitle'); // Optional chaining
+    const subtitleEl = endScreen?.querySelector('#end-subtitle');
     const titleEl = endScreen?.querySelector('#end-title');
 
     if (isBingo) {
@@ -441,11 +440,9 @@ try {
    if (topScoreEl) {
       topScoreEl.textContent = localStorage.getItem('alphabetBingoTopScore') || '0';
    } else {
-       console.error("Top score element not found on initial load.");
+       // console.error("Top score element not found on initial load."); // Reduce noise
    }
 } catch(e) {
    console.error("Could not access localStorage on initial load:", e);
 }
 showScreen('start-screen'); // Show the start screen and trigger initial music attempt
-
-</script>
