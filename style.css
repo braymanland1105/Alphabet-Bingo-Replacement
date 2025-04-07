@@ -29,11 +29,11 @@ body {
   font-family: var(--body-font);
   display: flex;
   justify-content: center;
-  align-items: flex-start;
+  align-items: flex-start; /* Align top for potentially longer content */
   min-height: 100vh;
   background-color: var(--bg-color);
   margin: 0;
-  padding-top: 20px;
+  padding-top: 20px; /* Add some space at the top */
 }
 
 #game-container {
@@ -43,30 +43,30 @@ body {
   box-shadow: 0 6px 12px rgba(0,0,0,0.15);
   text-align: center;
   width: 90%;
-  max-width: 550px;
-  border: 5px solid #7f4f24;
-  position: relative;
+  max-width: 550px; /* Slightly larger max width */
+  border: 5px solid #7f4f24; /* Brown border */
+  position: relative; /* For absolute positioning inside */
 }
 
 .screen {
-  display: none;
+  display: none; /* Hide screens by default */
   flex-direction: column;
   align-items: center;
-  gap: 20px;
-  min-height: 400px;
-  justify-content: space-around;
+  gap: 20px; /* Spacing between elements */
+  min-height: 400px; /* Ensure minimum height */
+  justify-content: space-around; /* Distribute space */
 }
 
 .screen.active {
-  display: flex;
+  display: flex; /* Show the active screen */
 }
 
 /* --- Titles & Text --- */
 .title-banner {
   font-family: var(--title-font);
-  font-size: 3em;
+  font-size: 3em; /* Larger title */
   color: var(--title-color);
-  text-shadow: 3px 3px 0px var(--title-shadow),
+  text-shadow: 3px 3px 0px var(--title-shadow), /* Simple 3D effect */
                -1px -1px 0 var(--title-shadow),
                1px -1px 0 var(--title-shadow),
                -1px 1px 0 var(--title-shadow),
@@ -75,18 +75,18 @@ body {
   line-height: 1.1;
 }
 
-h2 {
+h2 { /* Subtitles like SELECT MODE */
   font-family: var(--body-font);
-  font-weight: 700;
+  font-weight: 700; /* Ensure Nunito bold */
   color: var(--text-dark);
   font-size: 1.6em;
   margin-bottom: 10px;
 }
 
-h3 {
+h3 { /* Like BINGO! on end screen */
    font-family: var(--title-font);
    font-size: 2.5em;
-   color: var(--play-button-bg);
+   color: var(--play-button-bg); /* Green */
    margin: 0;
 }
 
@@ -99,7 +99,7 @@ button {
   padding: 10px 20px;
   cursor: pointer;
   border: 2px solid var(--button-border-color);
-  border-bottom-width: 4px;
+  border-bottom-width: 4px; /* Thicker bottom border for depth */
   border-radius: 8px;
   color: var(--text-light);
   transition: background-color 0.2s ease, transform 0.1s ease, border-bottom-width 0.1s ease, margin-top 0.1s ease;
@@ -112,9 +112,9 @@ button:hover {
 }
 
  button:active {
-     transform: translateY(2px);
-     border-bottom-width: 2px;
-     margin-top: 2px;
+     transform: translateY(2px); /* Push down effect */
+     border-bottom-width: 2px; /* Reduce bottom border */
+     margin-top: 2px; /* Adjust margin to keep position */
  }
 
 button:disabled {
@@ -129,7 +129,7 @@ button:disabled {
     display: flex;
     gap: 15px;
     justify-content: center;
-    flex-wrap: wrap;
+    flex-wrap: wrap; /* Allow wrapping on smaller screens */
 }
  .button-group.vertical {
       flex-direction: column;
@@ -146,8 +146,8 @@ button:disabled {
 .setting-button {
     background-color: var(--setting-button-bg);
     padding: 12px 25px;
-    min-width: 150px;
-    min-height: 50px;
+    min-width: 150px; /* Wider setting buttons */
+    min-height: 50px; /* Ensure height consistency */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -156,21 +156,21 @@ button:disabled {
 
 .back-button {
   background-color: var(--back-button-bg);
-  font-size: 1.5em;
+  font-size: 1.5em; /* Larger arrow */
   color: var(--text-light);
-  position: absolute;
+  position: absolute; /* Position relative to container */
   bottom: 15px;
   left: 15px;
   padding: 5px 12px;
-  min-width: auto;
-  line-height: 1;
+  min-width: auto; /* Override min-width */
+  line-height: 1; /* Ensure tight fit vertically */
 }
 .back-button:hover { background-color: var(--back-button-hover); }
 
 
 /* --- Game Grid --- */
 #bingo-grid-container {
-    background-color: #fdfcdc;
+    background-color: #fdfcdc; /* Slightly different cream for grid container */
     padding: 15px;
     border-radius: 10px;
     border: 3px solid var(--grid-cell-border);
@@ -179,12 +179,12 @@ button:disabled {
 
 #bingo-grid {
   display: grid;
-  gap: 8px;
-  margin: 0 auto;
+  gap: 8px; /* Slightly larger gap */
+  margin: 0 auto; /* Center grid within its container */
 }
 
 .grid-cell {
-  width: 70px;
+  width: 70px; /* Larger cells */
   height: 70px;
   background-color: var(--grid-cell-bg);
   border: 2px solid var(--grid-cell-border);
@@ -192,19 +192,19 @@ button:disabled {
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 2.2em;
+  font-size: 2.2em; /* Larger letter */
   font-weight: bold;
   color: var(--text-dark);
   cursor: pointer;
   transition: background-color 0.3s ease, transform 0.1s ease;
-  position: relative;
-  overflow: hidden;
-  -webkit-touch-callout: none;
-  -webkit-user-select: none;
-   -khtml-user-select: none;
-     -moz-user-select: none;
-      -ms-user-select: none;
-          user-select: none;
+  position: relative; /* For the 'X' */
+  overflow: hidden; /* Hide parts of X that might go outside */
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none; /* Safari */
+   -khtml-user-select: none; /* Konqueror HTML */
+     -moz-user-select: none; /* Old versions of Firefox */
+      -ms-user-select: none; /* Internet Explorer/Edge */
+          user-select: none; /* Non-prefixed version, currently supported by Chrome, Edge, Opera and Firefox */
 }
 
 .grid-cell:hover {
@@ -213,9 +213,9 @@ button:disabled {
 }
 
 .grid-cell.correct {
-  background-color: var(--grid-cell-correct-bg);
-  color: var(--text-dark);
-  cursor: default;
+  background-color: var(--grid-cell-correct-bg); /* Keep bg, maybe slightly brighter */
+  color: var(--text-dark); /* Keep text color */
+  cursor: default; /* Not clickable anymore */
 }
 
  /* Improved 'X' mark using pseudo-elements */
@@ -223,14 +223,14 @@ button:disabled {
 .grid-cell.correct::after {
     content: '';
     position: absolute;
-    width: 110%;
-    height: 10px;
+    width: 110%; /* Make lines slightly longer than cell width */
+    height: 10px; /* Thicker lines */
     background-color: var(--x-color);
-    border-radius: 5px;
+    border-radius: 5px; /* Rounded ends */
     top: 50%;
     left: 50%;
-    transform-origin: center center;
-    z-index: 1;
+    transform-origin: center center; /* Rotate around center */
+    z-index: 1; /* Ensure X is above background but below text span */
 }
  .grid-cell.correct::before {
      transform: translate(-50%, -50%) rotate(45deg);
@@ -238,15 +238,14 @@ button:disabled {
  .grid-cell.correct::after {
      transform: translate(-50%, -50%) rotate(-45deg);
  }
-
-/* Ensure text span is above the X */
-.grid-cell span {
-    position: relative;
-    z-index: 2;
-    /* Removed background: rgba(255, 255, 255, 0.6); */
-    padding: 0 3px;
-    border-radius: 2px;
-}
+ /* Ensure text span is above the X */
+ .grid-cell span {
+     position: relative;
+     z-index: 2; /* Above pseudo-elements */
+     /* background: rgba(255, 255, 255, 0.6); Highlight removed */
+     padding: 0 3px;
+     border-radius: 2px;
+ }
 
 
 .grid-cell.incorrect {
@@ -263,6 +262,7 @@ button:disabled {
 
 /* --- Game Screen Specifics --- */
  #called-letter-area {
+     /* Placeholder for potential character graphic */
      min-height: 80px;
      display: flex;
      align-items: center;
@@ -271,16 +271,16 @@ button:disabled {
 #called-letter-display {
   font-size: 2em;
   font-weight: bold;
-  color: var(--setting-button-bg);
-  -webkit-touch-callout: none;
-  -webkit-user-select: none;
-   -khtml-user-select: none;
-     -moz-user-select: none;
-      -ms-user-select: none;
-          user-select: none;
+  color: var(--setting-button-bg); /* Blue */
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none; /* Safari */
+   -khtml-user-select: none; /* Konqueror HTML */
+     -moz-user-select: none; /* Old versions of Firefox */
+      -ms-user-select: none; /* Internet Explorer/Edge */
+          user-select: none; /* Non-prefixed version */
 }
  #called-letter-display #current-letter {
-      font-size: 1.5em;
+      font-size: 1.5em; /* Make the letter itself bigger */
       display: inline-block;
       min-width: 40px;
       background-color: #eee;
@@ -293,7 +293,7 @@ button:disabled {
     margin-top: 15px;
 }
  .control-button {
-      background-color: var(--setting-button-bg);
+      background-color: var(--setting-button-bg); /* Blue */
  }
  .control-button:hover {
       background-color: var(--setting-button-hover);
@@ -301,10 +301,10 @@ button:disabled {
 
 
 /* --- End Screen Specifics --- */
- #end-screen h2 {
+ #end-screen h2 { /* GREAT JOB */
       font-family: var(--title-font);
       font-size: 3em;
-      color: var(--setting-button-bg);
+      color: var(--setting-button-bg); /* Blue */
       margin-bottom: 0;
  }
  #score-display {
