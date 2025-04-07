@@ -179,9 +179,11 @@ function stopMenuMusic() {
 }
 
 // --- Navigation ---
-// *** UPDATED MUSIC LOGIC HERE ***
+// *** UPDATED MUSIC LOGIC AGAIN FOR CLARITY ***
 function showScreen(screenId) {
-    console.log("Showing screen:", screenId); // Log screen transitions
+    console.log(`>>> showScreen called with screenId: ${screenId}`); // Add specific log
+
+    // Hide all screens, then activate the target one
     screens.forEach(screen => {
       screen.classList.remove('active');
       if (screen.id === screenId) {
@@ -189,19 +191,26 @@ function showScreen(screenId) {
       }
     });
 
-    // Control Menu Music based on screen
+    // --- Music Control Logic ---
     if (screenId === 'start-screen') {
-        // Start music only on the main menu (or restart if returning)
+        console.log(">>> Music condition: Starting/Restarting music for start-screen.");
         startMenuMusic();
-    } else if (screenId === 'game-screen') {
-        // Stop music ONLY when the actual game board screen appears
+    } else if (screenId === 'game-screen' || screenId === 'end-screen') {
+        // Stop music ONLY for game screen or end screen
+        console.log(`>>> Music condition: Stopping music for ${screenId}.`);
         stopMenuMusic();
-    } else if (screenId === 'end-screen') {
-        // Also stop music on the end screen
-        stopMenuMusic();
+    } else {
+        // For all other screens (settings), explicitly do nothing to the music.
+        console.log(`>>> Music condition: Letting music continue for settings screen ${screenId}.`);
+        // Make sure music is actually playing if interaction already happened
+        // This helps if the user navigates back *from* the game/end screen to settings
+        if (menuMusicAudio && menuMusicAudio.paused && interactionOccurred) {
+             console.log(">>> Music condition: Settings screen, but music was paused, attempting restart.");
+             // Attempt to restart if paused unexpectedly on a settings screen after initial interaction
+             // This might not be strictly necessary but adds robustness
+             startMenuMusic();
+        }
     }
-    // For settings screens ('settings-mode-screen', 'settings-case-screen', 'settings-grid-screen'),
-    // do nothing here, allowing the music started on 'start-screen' to continue playing.
 }
 
  // General handler for first interaction
